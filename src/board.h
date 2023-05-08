@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <iostream>
-
+#include <math>
 
 class Mass {
 public:
@@ -13,11 +13,23 @@ public:
 		WATER,// 進むのが1/3に遅くなる
 		ROAD,//進むのが3倍速い
 	};
+	enum list {
+		NONE,   //空
+		OPEN,   //オープン
+		CLOSED,  //クローズド
+	};
 private:
 	status s_ = BLANK;
+	list l_ = NONE;
 public:
 	void setStatus(status s) { s_ = s; }
 	status getStatus() const { return s_; }
+	void setList(list l) { l_ = l; }
+	status getList() const { return l_; }
+	int g = INFINITY;  //スタートからの最小コストの推定値
+	int h = 0;  //ゴールまでの最小コストの推定値
+	int f = 0;  //最短経路のコスト
+	Mass *prev = NULL;
 };
 
 class Point {
