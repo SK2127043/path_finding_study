@@ -51,7 +51,8 @@ bool Board::find(const Point& start, const Point& goal)
 					open_list.push(mass_[np_x][np_y]);
 				}
 				mass_[np_x][np_y].g = newG;
-					
+				mass_[np_x][np_y].h = 3 * (abs(p.x() + goal.y()) + abs(p.y() + goal.x()));
+				mass_[np_x][np_y].f = mass_[np_x][np_y].g + mass_[np_x][np_y].h;
 					
 					
 
