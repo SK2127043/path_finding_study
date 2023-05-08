@@ -5,6 +5,8 @@ bool Board::find(const Point& start, const Point& goal)
 	mass_[start.y()][start.x()].setStatus(Mass::START);
 	mass_[goal.y()][goal.x()].setStatus(Mass::GOAL);
 
+	std::sort(values.begin(), values.end(), [](const int& a, const int& b) { return a < b; });
+	
 	Point p = start;
 	while (p != goal) {
 		if (p != start) mass_[p.x()][p.y()].setStatus(Mass::WAYPOINT);
