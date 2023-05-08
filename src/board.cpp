@@ -2,19 +2,27 @@
 
 bool Board::find(const Point& start, const Point& goal)
 {
-	mass_[start.y()][start.x()].setStatus(Mass::START);
-	mass_[goal.y()][goal.x()].setStatus(Mass::GOAL);
+	Mass* startMass = mass_[start.y()][start.x()];
+	Mass* goalMass = mass_[goal.y()][goal.x()];
+	
+	startMass.setStatus(Mass::START);
+	startMass.setList(Mass::OPEN);
+	goalMass.setStatus(Mass::GOAL);
 
 	std::sort(values.begin(), values.end(), [](const int& a, const int& b) { return a < b; });
 	
 	Point p = start;
-	while (p != goal) {
+	while (!open_list.empty()) {
+		if(isGoal){
+			Mass pMass = mass_[goal.y()][goal.x()];
+			while(pMass.prev != ){
+				pMass = pMass.prev;
+				pMass.setStatus(Mass::WAYPOINT);
+				}
+		
 		if (p != start) mass_[p.x()][p.y()].setStatus(Mass::WAYPOINT);
 
-		if (p.x() < goal.x()) { p.setX(p.x() + 1); continue; }
-		if (goal.x() < p.x()) { p.setX(p.x() - 1); continue; }
-		if (p.y() < goal.y()) { p.setY(p.y() + 1); continue; }
-		if (goal.y() < p.y()) { p.setY(p.y() - 1); continue; }
+		
 	}
 
 	return false;
